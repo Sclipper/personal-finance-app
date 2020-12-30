@@ -44,6 +44,7 @@ module.exports = {
         after: true,
       },
     ],
+    radix: 'off',
     'block-spacing': ['error', 'always'],
     'brace-style': [
       'error',
@@ -52,6 +53,8 @@ module.exports = {
         allowSingleLine: true,
       },
     ],
+    'no-console': 'off',
+    'import/prefer-default-export': 'off',
     // "comma-dangle": [
     //   "error",
     //   "always-multiline"
