@@ -1,21 +1,131 @@
-import * as React from 'react'
+import { withStyles } from '@material-ui/core/styles'
 
 import {
-  Button,
+  IconButton,
   makeStyles,
   Step,
   StepLabel,
   Stepper,
   Typography,
+  StepConnector,
+  ButtonGroup,
 } from '@material-ui/core'
 
-const useStyles = makeStyles((theme) => ({}))
+import { default as cx } from 'classnames'
 
-const CustomStepper = ({ stepKeys, stepContent }) => {
+import {
+  NavigateNext,
+  NavigateBefore,
+  CheckCircle,
+  MonetizationOn,
+  MoneyOff,
+} from '@material-ui/icons'
+import { Button } from './ui/Button'
+
+const useStyles = makeStyles((theme) => ({
+  buttonContainer: {
+    margin: '2rem',
+    padding: '1rem',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  iconButton: {
+    border: '1px solid',
+    borderRadius: '0.25rem',
+  },
+}))
+
+const CustomConnector = withStyles({
+  alternativeLabel: {
+    top: 0,
+  },
+  active: {
+    '& $line': {
+      backgroundImage:
+        'linear-gradient( 95deg,#65e6f7 0%,#3EC3D5 50%,#0a8a9b 100%)',
+    },
+  },
+  completed: {
+    '& $line': {
+      backgroundImage:
+        'linear-gradient( 95deg,#65e6f7 0%,#3EC3D5 50%,#0a8a9b 100%)',
+    },
+  },
+  line: {
+    height: '2.5rem',
+    border: 0,
+    backgroundColor: '#eaeaf0',
+    backgroundImage:
+      'linear-gradient( 95deg,#65e6f7 0%,#3EC3D5 50%,#0a8a9b 100%)',
+  },
+})(StepConnector)
+
+const useCustomStepIconStyles = makeStyles({
+  root: {
+    height: '40px',
+    background: '#0a8a9b',
+    color: '#fff',
+    position: 'relative',
+    width: '3rem',
+    textAlign: 'center',
+    lineHeight: '40px',
+    display: ' flex',
+    justifyContent: ' center',
+    alignItems: ' center',
+    '&:last-child': {
+      '&::after': {
+        content: '"some content"',
+        position: 'absolute',
+        height: '0',
+        width: '0',
+        left: '100%',
+        top: '0',
+        border: '20px solid transparent',
+        borderLeft: ' 20px solid #0a8a9b',
+      },
+    },
+  },
+  labelContainer: {
+    width: '1rem',
+  },
+  active: {
+    backgroundImage:
+      'linear-gradient( 136deg,#65e6f7 0%,#65e6f7 50%,#65e6f7 100%)',
+  },
+  completed: {
+    backgroundImage:
+      'linear-gradient( 136deg,#65e6f7 0%,#65e6f7 50%,#65e6f7 100%)',
+  },
+})
+
+function CustomStepIcon(props) {
+  const classes = useCustomStepIconStyles()
+  const { completed, icon } = props
+  const icons = {
+    1: <MonetizationOn />,
+    2: <MoneyOff />,
+  }
+
+  return (
+    <div
+      className={cx(classes.root, {
+        [classes.active]: icon === 1,
+        [classes.completed]: icon === 1,
+      })}
+    >
+      {completed ? <CheckCircle /> : icons[String(icon)]}
+    </div>
+  )
+}
+
+const CustomStepper = ({
+  stepKeys,
+  stepContent,
+  activeStep,
+  setActiveStep,
+  finishContent,
+}) => {
   const classes = useStyles()
-
-  const [activeStep, setActiveStep] = React.useState(1)
-
   function getStepContent(step) {
     if (step <= stepContent.length - 1) {
       return stepContent[step]
@@ -40,47 +150,50 @@ const CustomStepper = ({ stepKeys, stepContent }) => {
       <Stepper
         alternativeLabel
         activeStep={activeStep}
-        // connector={<ColorlibConnector />}
+        connector={<CustomConnector />}
       >
         {stepKeys.map((label) => (
           <Step key={label}>
-            <StepLabel
-            // StepIconComponent={ColorlibStepIcon}
-            >
-              {label}
-            </StepLabel>
+            <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
       <div>
         {activeStep === stepKeys.length ? (
           <div>
-            <Typography className={classes.instructions}>
-              All steps completed - you&apos;re finished
-            </Typography>
-            <Button onClick={handleReset} className={classes.button}>
-              Reset
-            </Button>
+            {finishContent}
+            <div className={classes.buttonContainer}>
+              <IconButton
+                disabled={activeStep === 0}
+                onClick={handleReset}
+                className={classes.iconButton}
+              >
+                <NavigateBefore />
+                Whatever action you want to do. Function to come from parent
+              </IconButton>
+            </div>
           </div>
         ) : (
           <div>
             {getStepContent(activeStep)}
-            <div>
-              <Button
+            <div className={classes.buttonContainer}>
+              <IconButton
                 disabled={activeStep === 0}
                 onClick={handleBack}
-                className={classes.button}
+                className={classes.iconButton}
               >
+                <NavigateBefore />
                 Back
-              </Button>
-              <Button
+              </IconButton>
+              <IconButton
                 variant="contained"
                 color="primary"
                 onClick={handleNext}
-                className={classes.button}
+                className={classes.iconButton}
               >
                 {activeStep === stepKeys.length - 1 ? 'Finish' : 'Next'}
-              </Button>
+                <NavigateNext />
+              </IconButton>
             </div>
           </div>
         )}

@@ -79,6 +79,7 @@ module.exports = {
         null: 'ignore',
       },
     ],
+    'no-nested-ternary': 'off',
     'func-call-spacing': ['error', 'never'],
     // "generator-star-spacing": ["error", { "before": true, "after": true }],
     // "indent": [
@@ -99,6 +100,8 @@ module.exports = {
     //     "ignoreComments": false
     //   }
     // ],
+    'import/no-named-default': 'off',
+    'react/jsx-props-no-spreading': 'off',
     'key-spacing': [
       'error',
       {
@@ -245,7 +248,7 @@ module.exports = {
       },
     ],
     'no-unused-vars': [
-      'error',
+      'warn',
       {
         vars: 'all',
         args: 'none',

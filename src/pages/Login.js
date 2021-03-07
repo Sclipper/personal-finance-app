@@ -46,7 +46,7 @@ const Login = () => {
       })
       .catch((err) => {
         console.log('err', err)
-        setFailedLoginMessage(err.response.data)
+        setFailedLoginMessage(err?.response?.data)
       })
   }
 
