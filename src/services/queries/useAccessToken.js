@@ -1,7 +1,7 @@
 // @flow
 
 import { useQuery } from 'react-query'
-import { getAccessToken } from '../api'
+import { getAccessToken } from 'services/api/getAccessToken'
 
 export function useAccessToken() {
   return useQuery(['accessToken'], () => getAccessToken(), {

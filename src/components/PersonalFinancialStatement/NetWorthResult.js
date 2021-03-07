@@ -25,7 +25,6 @@ const NetWorthResult = () => {
   const classes = useStyles()
 
   const { assets, liabilities } = usePersonalFinanceContext()
-  console.log('liabilities', liabilities)
   const allAssets = calculateAll(assets)
   const allLiabilities = calculateAll(liabilities)
 

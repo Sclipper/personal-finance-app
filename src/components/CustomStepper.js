@@ -6,9 +6,7 @@ import {
   Step,
   StepLabel,
   Stepper,
-  Typography,
   StepConnector,
-  ButtonGroup,
 } from '@material-ui/core'
 
 import { default as cx } from 'classnames'
@@ -20,7 +18,6 @@ import {
   MonetizationOn,
   MoneyOff,
 } from '@material-ui/icons'
-import { Button } from './ui/Button'
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
@@ -124,6 +121,7 @@ const CustomStepper = ({
   activeStep,
   setActiveStep,
   finishContent,
+  handleResetFunction,
 }) => {
   const classes = useStyles()
   function getStepContent(step) {
@@ -143,6 +141,7 @@ const CustomStepper = ({
 
   const handleReset = () => {
     setActiveStep(0)
+    handleResetFunction()
   }
 
   return (
@@ -164,12 +163,13 @@ const CustomStepper = ({
             {finishContent}
             <div className={classes.buttonContainer}>
               <IconButton
+                style={{ backgroundColor: '65e6f7' }}
                 disabled={activeStep === 0}
                 onClick={handleReset}
                 className={classes.iconButton}
               >
                 <NavigateBefore />
-                Whatever action you want to do. Function to come from parent
+                Save statement to database and see insights.
               </IconButton>
             </div>
           </div>

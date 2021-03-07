@@ -37,7 +37,7 @@ const initialState = {
     creditCard: 0,
     notesPayable: 0,
     taxes: 0,
-    house: 0,
+    realEstateMortgages: 0,
     otherMortgages: 0,
     otherLiabilities: 0,
   },

@@ -3,6 +3,7 @@ import { useAccessToken } from '../services/queries'
 
 import PersonalFinancialStatement from '../components/PersonalFinancialStatement'
 import Header from '../components/Header'
+import { PersonalFinanceProvider } from '../components/PersonalFinancialStatement/context'
 
 // import { makeStyles } from '@material-ui/core'
 
@@ -21,7 +22,9 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <PersonalFinancialStatement />
+      <PersonalFinanceProvider>
+        <PersonalFinancialStatement />
+      </PersonalFinanceProvider>
     </div>
   )
 }

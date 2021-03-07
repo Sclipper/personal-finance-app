@@ -100,9 +100,11 @@ const Liabilities = (state, setState) => {
       </FieldComponent>
       <FieldComponent title="Mortgages" iconText="House, boat etc...">
         <TextField
-          onChange={(e) => setUpdateLiabilities('house', e.target.value)}
+          onChange={(e) =>
+            setUpdateLiabilities('realEstateMortgages', e.target.value)
+          }
           className={classes.textField}
-          label="House"
+          label="Real Estate"
           variant="outlined"
           type="number"
         />
